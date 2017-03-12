@@ -1,0 +1,107 @@
+.flexslider{ position:absolute}
+.flexslider ul.slides{margin:0;padding:0}
+.flexslider ul li{ position:relative}
+.liafter{position:absolute;width:100%;height:75%;bottom:0;left:0;
+         background: -moz-linear-gradient(top,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.5) 100%);
+background: -webkit-linear-gradient(top,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%);
+background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.5) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#80000000',GradientType=0 );
+}
+h3, h2{font-size:40px;color:#fff; text-shadow:1px 1px 3px #777; font-weight:normal; line-height:45px;padding-bottom:20px;}
+h2, .slideInfo h2 a{color:#F7323F}
+p a{color:#fff; text-shadow:1px 1px 2px #777; font-size:20px;}
+.slides{position:relative;}
+.slides li{ background-size:cover; position:relative;}
+
+.slideInfo{position:absolute;bottom:100px;left:50px; width:100%; z-index:9999;}
+/*.flex-control-nav{ display:none !important}*/
+.dotstyle{position:absolute; bottom:50px; z-index:99999; text-align:center; width:100%;}
+.dotstyle ul {
+	position: relative;
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	cursor: default;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none; width:288px; margin:0 auto;
+}
+
+.dotstyle li {
+	position: relative;
+	display: block;
+	float: left;
+	margin: 0 16px;
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+}
+
+.dotstyle li a {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	outline: none;
+	border-radius: 50%;
+	background-color: #fff;
+	background-color: rgba(255, 255, 255, 0.3);
+	text-indent: -999em; /* make the text accessible to screen readers */
+	cursor: pointer;
+	position: absolute;
+}
+
+.dotstyle li a:focus {
+	outline: none;
+}
+
+
+/* 3D Flip */
+
+.dotstyle-flip li {
+	-webkit-perspective: 1000px;
+	perspective: 1000px;
+}
+
+.dotstyle-flip li a {
+	background-color: transparent;
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-transition: -webkit-transform 0.3s ease, opacity 0.3s ease;
+	transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.dotstyle-flip li a::before,
+.dotstyle-flip li a::after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	background-color: white;
+	content: '';
+	text-indent: 0;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+.dotstyle-flip li a::after {
+	background-color: #c44d48;
+	-webkit-transform: rotateY(180deg);
+	transform: rotateY(180deg);
+}
+
+.dotstyle-flip li a:hover,
+.dotstyle-flip li a:focus {
+	opacity: 0.8;
+}
+
+.dotstyle-flip li.current a, .dotstyle-flip li.active a {
+	-webkit-transform: rotateY(180deg);
+	transform: rotateY(180deg);
+}

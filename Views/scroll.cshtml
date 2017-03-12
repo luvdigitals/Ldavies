@@ -1,0 +1,38 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Master.cshtml";
+}
+<div id="projectsMainContainer">
+    <div style="border-top:1px solid #9b9b9b;border-bottom:1px solid #9b9b9b; padding:10px 0;">
+        <div class="fixed-width-container" style="width: 1266px;">
+            <div id="pageTitle">projects</div>
+
+            <div class="clear"></div>
+        </div>
+    </div>@{
+        var sectors = CurrentPage.Children;
+    }
+    @if (sectors.Any())
+    {
+        foreach (var sector in sectors)
+        {
+            <div class="clear"></div>
+            <div class="fixed-width-container" style="width: 1266px;">
+                <h3 class="projectCategory">@sector.Name</h3>
+            </div>
+            foreach (var project in sector.Children)
+            {
+                var media = Umbraco.Media(project.image);
+                <div class="project-thumb-list" style="">
+                    <a href="@project.Url">
+                        <img src="@media.Url" width="1000" height="693" alt="">
+                        <div class="projectInfo">
+                            <h4>@project.Name</h4>
+                            <p>@project.country</p>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+    }
+</div>

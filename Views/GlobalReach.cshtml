@@ -1,0 +1,29 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Master.cshtml";
+    var contentClass = @CurrentPage.Name.ToString().ToLower().Replace(" ","");
+}
+<div class="contactus">
+    <div class="cnt-head" style="border-bottom:2px solid #999;">
+        <h2>@CurrentPage.Name</h2>
+    </div>
+    <div class="container">
+        <div class="cnt-txt globalreach" style="position:relative;"><img src="../images/map.svg" alt="" style="width:100%;height:auto"></div>
+        <div class="mapHilights" style="">
+            <div class="col-md-12 cnt-txt imptext">
+                <div class="col-xs-6 col-sm-3"><h3>international <br />experience in <br />over 75 <br />countries</h3></div>
+                <div class="col-xs-6 col-sm-3"><h3>over 50 <br />masterplanning <br />projects in 6 <br />continents.</h3></div>
+                <div class="col-xs-6 col-sm-3"><h3>pioneering 12 firsts <br />achievements in <br />healthcare <br />projects</h3></div>
+                <div class="col-xs-6 col-sm-3"><h3>20+ years in <br />aviation</h3></div>
+            </div>
+        </div>
+    </div>
+                <!--  -->
+            <div class="cnt-txt @contentClass">
+                @CurrentPage.GetGridHtml("content")
+            </div>
+        </div>
+        <!--
+        <script src="/scripts/maps.js"></script>
+        <script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-P2RZEgYAFivnr5-OAMpj7cpVxa2LbHw&signed_in=true&callback=initMap"></script>
+        -->

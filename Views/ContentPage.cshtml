@@ -1,0 +1,13 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Master.cshtml";
+    var contentClass = @CurrentPage.Name.ToString().ToLower().Replace(" ","");
+}
+<div class="contactus">
+    <div class="cnt-head" style="border-bottom:2px solid #999;">
+        <h2>@CurrentPage.Name</h2>
+    </div>
+    <div class="cnt-txt @contentClass">
+        @CurrentPage.GetGridHtml("content")
+    </div>
+</div>

@@ -1,0 +1,69 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@using ContentModels = Umbraco.Web.PublishedContentModels;
+@{
+    Layout = "Master.cshtml";
+}
+@section Css
+             {
+    @Styles.Render("/css/flexslider.css")
+}
+@{ var selection = Umbraco.Content(1502).Children;
+ int imageCount = 0; }
+@if (selection.Count()>0)
+{
+
+    <div class="scroller">
+        <div class="flexslider" id="homeSlider">
+            <ul class="slides">
+                @foreach (var item in selection)
+                {
+                    if (item.DocumentTypeAlias == "imageSlide")
+                    {
+                        var media = Umbraco.Media(item.image);
+
+                        <li style="background-image:url('@media.Url')">
+                            <div class="liafter"></div>
+                            <div class="slideInfo">
+                                @if (!string.IsNullOrEmpty(item.linkToPage.ToString()))
+                                {
+                                    var content = Umbraco.Content(item.linkToPage);
+                                    <a href="@content.Url">
+                                        @Html.Raw(item.title)
+                                        @Html.Raw(item.shortDescription)
+                                    </a>
+                                }
+                                else
+                                {
+                                    @Html.Raw(item.title)
+                                    @Html.Raw(item.shortDescription)
+                                }
+                            </div>
+                        </li>
+                                imageCount++;
+                    }
+                }
+            </ul>
+            <div class="dotstyle dotstyle-flip">
+                <ul class="flex-control-nav" style="display:block !important">
+                    @for (int count = 1; count <= imageCount; count++)
+                    {
+                        <li><a class="">@count</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts
+             {
+        @Scripts.Render("/scripts/flexslider.js")
+        @Scripts.Render("/scripts/jquery.flexslider.js")
+        @Scripts.Render("/scripts/dots.js")
+    }
+}
+<style>
+body, html {
+    height: 100% !important;
+}
+    
+</style>

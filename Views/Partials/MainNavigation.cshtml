@@ -1,0 +1,89 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{ var home = CurrentPage.Site(); }
+@if (home.Children.Any())
+{
+    @* Get the first page in the children *@
+    var naviLevel = home.Children.First().Level;
+
+    @* Add in level for a CSS hook *@
+    <ul class="level-@naviLevel">
+        @* For each child page under the home node *@
+        @foreach (var childPage in home.Children.Where("Visible"))
+        {
+            if (childPage.Children.Any())
+            {
+                if (childPage.DocumentTypeAlias == "contentPage")
+                {
+                    <li class="icon icon-arrow-left">
+                        <span>@childPage.Name</span>
+                        @childPages(childPage.Children, childPage.Name.ToString().ToLower().Replace(" ", ""))
+                    </li>
+                }
+                else if (childPage.DocumentTypeAlias == "projectsLanding")
+                {
+                    <li class="icon icon-arrow-left">
+                        <a class="icon icon-shop" href="#">@childPage.Name</a>
+                        <div class="mp-level">
+                            <h2 class="icon icon-projects">&nbsp;</h2>
+                            <a class="mp-back" href="#">back</a>
+                            <ul>
+                                <li><a class="icon icon-food" href="/projects">view all</a></li>
+
+                                @foreach (var subChildpage in childPage.Children)
+                                {
+                                    <li class="icon icon-arrow-left">
+                                        <a class="icon icon-t-shirt" href="#">@subChildpage.Name</a>
+                                        <div class="mp-level">
+                                            @childPages(subChildpage.Children, subChildpage.Name.ToString().ToLower().Replace(" ", ""))
+                                        </div>
+                                    </li>
+                                }
+
+                            </ul>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li class="icon icon-arrow-left">
+                        <a href="@childPage.Url">@childPage.Name</a>
+                    </li>
+                }
+
+            }
+            else if (childPage.DocumentTypeAlias == "imageSlide")
+            {
+                continue;
+            }
+            else
+            {
+                <li class="icon icon-arrow-left">
+                    <a href="@childPage.Url">@childPage.Name</a>
+                </li>
+            }
+        }
+        <li><a class="icon icon-photo" href="/brochure-download" id="cLog">Brochure Download</a></li>
+    </ul>
+}
+@helper childPages(dynamic pages, string name)
+{
+    @* Ensure that we have a collection of pages *@
+    if (pages.Any())
+    {
+        <h2 class="icon icon-@name">&nbsp;</h2>
+        <a class="mp-back" href="#">back</a>
+        @* Add in level for a CSS hook *@
+        <ul>
+            @foreach (var page in pages.Where("Visible"))
+            {
+                if (page.DocumentTypeAlias == "contentPage" || page.DocumentTypeAlias == "projects")
+                {
+                    <li>
+                        <a href="@page.Url">@page.Name</a>
+                    </li>
+                }
+            }
+        </ul>
+    }
+
+}

@@ -1,0 +1,21 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Master.cshtml";
+    var contentClass = @CurrentPage.Name.ToString().ToLower().Replace(" ", "");
+}
+<div class="contactus">
+    <div class="cnt-head" style="border-bottom:2px solid #999;">
+        <h2>@CurrentPage.Name</h2>
+    </div>
+    <div class="map">
+        <div id="map-canvas" style="position:relative;height:400px;width:100%;"></div>
+    </div>
+    <div class="cnt-txt @contentClass">
+        @CurrentPage.GetGridHtml("content")
+    </div>
+</div>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-P2RZEgYAFivnr5-OAMpj7cpVxa2LbHw&sensor=false"></script>
+@section Scripts
+             {
+    @Scripts.Render("/scripts/contactus.js")
+}

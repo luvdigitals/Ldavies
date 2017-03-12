@@ -1,0 +1,67 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "Master.cshtml";
+}
+@{ int projectsId = 1105; int sectorCount = 1; int pdfCount = 1;
+ var projects = Umbraco.Content(projectsId);}
+<div class="brochure-wraper">
+    <div class="brochure-inner">
+        <div class="brochure-head">
+            <ul><li>brochure download</li>
+                <div class="clear"></div>
+            </ul>
+        </div>
+
+    </div>
+    <div class="brochure-tabs">
+        <ul class="tabs">
+            @foreach (var sector in projects.Children)
+            {
+                <li><a href='@("#tab"+sectorCount)'>@sector.Name</a></li>
+                sectorCount++;
+            }
+            @{sectorCount = 1;}
+        </ul>
+        
+        <a href="#" id="download"><img src="../images/download.png"></a>
+        <div class="clr"></div>
+        @if (projects.Children.Any())
+        {
+            <div class="tabs-wraper">
+                <section class="block">
+                    @foreach (var sector in projects.Children)
+                    {
+                        var pdfIds = sector.filePicker.Split(',');
+                        <article id='@("tab"+sectorCount)'>
+                            <ul>
+                                @foreach (var pdfId in pdfIds)
+                                {
+                                    var pdf = Umbraco.Media(pdfId);
+                                    if (pdf.DocumentTypeAlias == "File")
+                                    {
+                                        <li class="@pdf.id">
+                                            <input type="checkbox" id='@("checkbox_btn"+pdfCount)' name="choice" class="pdflist" value="" />
+                                            
+                                            <label class="pdfname" for='@("checkbox_btn"+pdfCount)'>
+                                                <span></span>@pdf.Name
+                                            </label>
+                                        </li>
+                                        pdfCount++;
+                                    }
+                                }
+                            </ul>
+                        </article>
+                                sectorCount++;
+                    }
+                </section>
+            </div>
+        }
+    </div>
+    @Html.ActionLink("Test", "GeneratePdf", "Common")
+</div>
+@section Scripts
+             {
+    @Scripts.Render("/scripts/brochure.js")
+
+}
+

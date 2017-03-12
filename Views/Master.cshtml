@@ -1,0 +1,142 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = null;
+    var home = @CurrentPage.Site();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="@CurrentPage.seoKeywords">
+    <meta name="description" content="@CurrentPage.seoDescription">
+    <title>@CurrentPage.Name | @CurrentPage._siteTitle</title>
+    <link rel="shortcut icon" href="@CurrentPage._siteFavicon" />
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    @RenderSection("Css", required: false)
+    <style>
+        body, html {
+            height: auto !important; max-height:100%;
+        }
+    </style>
+</head>
+<body>@{
+        var siteLogo = Umbraco.Media(home.SiteLogo);
+    }
+    <div id="newHeader">
+        <div id="logonew" style="background:url('@(siteLogo.Url)') 0 0 no-repeat">
+            <a href="@home.Url"></a>
+        </div>
+        <div id="triggernew" class="triggernew" onclick="closeMe();">
+        </div>
+    </div><!-- New Header End-->
+    <div class="mp-pusher" id="mp-pusher"><div id="logo">
+</div>
+        <div id="trigger">
+        </div><!--<div style="position:fixed;top:0;right:0;width:100px; height:200px; background-color:#f7f7f7"></div>-->
+        <nav id="mp-menu" class="mp-menu">
+            <div class="mp-level">
+                <h2 class="icon icon-home">&nbsp;</h2>
+                @{ Html.RenderPartial("MainNavigation"); }
+            </div>
+        </nav>
+        <div class="scroller-inner">
+
+            
+        </div>
+        @RenderBody()
+        
+        <div id="cLogin">
+            @*<form id="loginForm" action="@Url.Action("MemberLoginPost","Common")">
+                <strong>client login</strong>
+                <input type="text" id="username"><input type="password" id="pass"><input type="submit" value="Login" id="submitBtn" /><input type="button" value="Cancel" id="cancelBtn" />
+            </form>
+            @using (Html.BeginUmbracoForm<ldavies.Controllers.CommonController>("MemberLogin", null))
+            {
+                <strong>client login</strong>
+                <input type="text" id="username" name="Username" class="form-control"><input type="password" id="password" name="Password" class="form-control">
+                <input type="submit" value="Login" id="submitBtn" />
+                <input type="button" value="Cancel" id="cancelBtn" />
+                <div id="diverror"></div>
+            }*@
+        </div>
+    </div>
+    <!-- Javascripts -->
+    <script src="/scripts/jquery.min.js"></script>
+    @*<script src="/scripts/bootstrap.min.js"></script>*@
+    
+
+    <script src="/scripts/classie.js" type="text/javascript"></script>
+    <script src="/scripts/mlpushmenu.js" type="text/javascript"></script>
+    <script src="/scripts/modernizr.custom.js" type="text/javascript"></script>
+    <script>
+        [].slice.call(document.querySelectorAll('.dotstyle > ul')).forEach(function (nav) {
+            new DotNav(nav, {
+                callback: function (idx) {
+                    //console.log( idx )
+                }
+            });
+        });
+    </script>
+    <script>
+        new mlPushMenu(document.getElementById('mp-menu'), document.getElementById('trigger'));
+        new mlPushMenu(document.getElementById('mp-menu'), document.getElementById('triggernew'));
+        //new mlPushMenu(document.getElementById('mp-menu'), document.getElementsByClassName('Newtrigger'));
+        function closeMe(){
+            var container = document.getElementById( 'st-container' );
+            classie.remove( container, 'st-menu-open' );
+        };
+        $(function () {
+            $bodyHeight = $('body').height();
+            //$('#mp-pusher,body').css('height', $bodyHeight);
+            //alert($bodyHeight)
+            //$('#mp-menu').css({'height': $bodyHeight,'overflow-y':'hidden'});
+
+            $('#mp-pusher, #triggernew').click(function () {
+                if ($('#newHeader').hasClass('pushedHeader')) {
+                    //alert();
+                    $('#newHeader').removeClass('pushedHeader')
+                } else {
+                    $('#newHeader').addClass('pushedHeader')
+                }
+            });			
+			
+
+            $('#mp-pusher,#newHeader').click(function () {
+                if ($('#newHeader').hasClass('pushedHeader')) {
+                    //alert();
+                    $('#newHeader').removeClass('pushedHeader')
+                }
+            });
+
+            $("#triggernew").click(function () {
+                //alert();
+                //$('.mp-menu').css({ 'position': 'fixed' });
+                $( "#trigger" ).get().click();
+            });
+            function fix_scroll() {
+                
+                var s = $(window).scrollTop();
+                //alert(s);
+                var fixedTitle = $('#mp-menu > .mp-level');
+                fixedTitle.css('position', 'fixed');
+                fixedTitle.css('top', s + 'px');
+            } fix_scroll();
+
+            $(window).on('scroll', fix_scroll);
+        });
+    </script>
+    
+		<!--<script type="text/javascript" src="http://fast.fonts.net/jsapi/11ecb06a-1f65-4c6b-a898-d27369456181.js"></script> -->
+    @RenderSection("Scripts", required: false)
+		<div id="ldCloud">
+            @Html.Raw(home.ldCloud)
+        </div>
+    <script src="/scripts/main.js" type="text/javascript"></script>
+    
+</body>
+</html>

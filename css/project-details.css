@@ -1,0 +1,18 @@
+﻿.st-accordion ul li {
+    height: auto;
+}
+
+    .st-accordion ul li > a span {
+        /*visibility:hidden;*/
+    }
+
+body, html {
+    height: auto !important;
+}
+
+.st-accordion ul li ul li, .st-accordion ul li ul li > a {
+    background-color: none !important;
+}
+
+.st-accordion ul li > a {
+}
