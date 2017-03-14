@@ -43,13 +43,16 @@
                         </div>
                     </li>
                 }
+                else if (childPage.DocumentTypeAlias == "imageSlide")
+                {
+                    continue;
+                }
                 else
                 {
                     <li class="icon icon-arrow-left">
                         <a href="@childPage.Url">@childPage.Name</a>
                     </li>
                 }
-
             }
             else if (childPage.DocumentTypeAlias == "imageSlide")
             {
